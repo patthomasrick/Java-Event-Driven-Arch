@@ -25,14 +25,25 @@ public abstract class Transition {
      * @param destinations
      */
     public Transition(State source, State[] destinations) {
-        if (source == null || destinations == null || destinations.length == 0) {
+        if (source == null || destinations == null) {
             throw new IllegalArgumentException(
-                    "Source and destinations must be non-null and have at least one destination.");
+                    "Source and destinations must be non-null.");
         }
 
         this.source = source;
         this.destinations = destinations;
         this.labels = new String[destinations.length];
+    }
+
+    protected Transition(State source, int numDestinations) {
+        if (source == null) {
+            throw new IllegalArgumentException(
+                    "Source must be non-null.");
+        }
+
+        this.source = source;
+        this.destinations = new State[numDestinations];
+        this.labels = new String[numDestinations];
     }
 
     /**
