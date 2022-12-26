@@ -15,11 +15,37 @@ public class App {
     public static void main(String[] args) {
         FiniteStateMachineBuilder builder = new FiniteStateMachineBuilder();
         State start = builder.newState();
+        start.setLabel("Start");
         State end = builder.newState();
+        end.setLabel("End");
         builder.addBinaryTransition(start, end, start);
         builder.addBinaryTransition(end, start, end);
         FiniteStateMachine fsm = builder.build();
 
-        System.out.println(fsm.toDot());
+        // System.out.println(fsm.toDot());
+        // Write to file
+        try {
+            java.io.FileWriter writer = new java.io.FileWriter("fsm.dot");
+            writer.write(fsm.toDot());
+            writer.close();
+
+            // Run dot
+            ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "fsm.dot", "-o", "fsm.png");
+            Process p = pb.start();
+            p.waitFor();
+        } catch (java.io.IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Boolean input = i % 2 == 0;
+            System.out.println("Input: " + input);
+            fsm.evaluate(input);
+            System.out.println("Current state: " + fsm.getCurrentState());
+        }
     }
 }

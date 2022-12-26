@@ -17,19 +17,46 @@ public class FiniteStateMachineBuilder {
         this.transitions = new ArrayList<Transition>();
     }
 
+    /**
+     * Generate a new state and return it.
+     *
+     * @return the new state
+     */
     public State newState() {
-        State newState = new State() {
-        };
+        State newState = new State();
         this.states.add(newState);
         return newState;
     }
 
+    /**
+     * Add an existing state.
+     *
+     * @param state
+     */
+    public void addState(State state) {
+        this.states.add(state);
+    }
+
+    /**
+     * Define a new binary transition.
+     *
+     * @param source           Starting state
+     * @param trueDestination  Destination state if the transition evaluates to true
+     * @param falseDestination Destination state if the transition evaluates to
+     *                         false
+     * @return the new transition
+     */
     public Transition addBinaryTransition(State source, State trueDestination, State falseDestination) {
         Transition newTransition = new BinaryTransition(source, trueDestination, falseDestination);
         this.transitions.add(newTransition);
         return newTransition;
     }
 
+    /**
+     * Construct a new finite state machine.
+     *
+     * @return the new finite state machine
+     */
     public FiniteStateMachine build() {
         FiniteStateMachine fsm = new FiniteStateMachine(
                 this.states.toArray(new State[this.states.size()]),

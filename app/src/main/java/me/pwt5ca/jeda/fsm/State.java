@@ -5,7 +5,7 @@ package me.pwt5ca.jeda.fsm;
  *
  * @author Patrick Thomas <patrick@patrickwthomas.net>
  */
-public abstract class State {
+public class State {
     private static int idCounter = 0;
 
     /**
@@ -28,13 +28,22 @@ public abstract class State {
         this.label = label;
     }
 
+    @Override
+    public String toString() {
+        if (this.getLabel() != null) {
+            return String.format("State(%d, \"%s\")", this.getId(), this.getLabel());
+        } else {
+            return String.format("State(%d)", this.getId());
+        }
+    }
+
     /**
      * Returns the unique ID of this state.
      *
      * @return the unique ID of this state
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -43,7 +52,7 @@ public abstract class State {
      * @return the label of this state
      */
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     /**
@@ -70,6 +79,10 @@ public abstract class State {
      * @return Line that creates a node with a label in DOT
      */
     public String toDot() {
-        return String.format("%d [label=\"%d\"]", id, id);
+        if (this.getLabel() != null) {
+            return String.format("%d [label=\"%s\"]", this.id, this.label);
+        } else {
+            return String.format("%d [label=\"%d\"]", this.id, this.id);
+        }
     }
 }

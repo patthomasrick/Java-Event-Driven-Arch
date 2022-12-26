@@ -6,8 +6,19 @@ package me.pwt5ca.jeda.fsm;
  * @author Patrick Thomas <patrick@patrickwthomas.net>
  */
 public class FiniteStateMachine {
+    /** States in the machine. */
     protected State[] states;
+
+    /** The current state of the machine. */
     protected State currentState;
+
+    /** The end state of the machine that means the input string is recognized. */
+    protected State endState;
+
+    /**
+     * The transitions of the machine. Each transition has a source state and
+     * one or more destinations.
+     */
     protected Transition[] transitions;
 
     /**
@@ -19,6 +30,9 @@ public class FiniteStateMachine {
     public FiniteStateMachine(State[] states, Transition[] transitions) {
         this.states = states;
         this.transitions = transitions;
+
+        // Assume state 0 is the start state.
+        this.currentState = states[0];
     }
 
     /**
@@ -27,20 +41,44 @@ public class FiniteStateMachine {
      * @return the current state
      */
     public State getCurrentState() {
-        return currentState;
+        return this.currentState;
     }
 
+    /**
+     * Determine if the current input string is recognized by this machine.
+     * 
+     * @return true if the current input string is recognized by this machine
+     */
+    public Boolean inEndState() {
+        return this.currentState == this.endState;
+    }
+
+    /**
+     * Evaluate the current input string.
+     *
+     * @param object the current input string
+     */
     public void evaluate(Object object) {
-        for (Transition transition : transitions) {
-            if (transition.getSource() == currentState) {
-                currentState.exit();
-                currentState = transition.evaluate(object);
-                currentState.enter();
+        for (Transition transition : this.transitions) {
+            if (transition.getSource() == this.currentState) {
+                State newState = transition.evaluate(object);
+                if (newState == null) {
+                    continue;
+                }
+
+                this.currentState.exit();
+                this.currentState = newState;
+                this.currentState.enter();
                 return;
             }
         }
     }
 
+    /**
+     * Returns a DOT representation of this machine.
+     *
+     * @return the DOT representation
+     */
     public String toDot() {
         StringBuilder sb = new StringBuilder();
         sb.append("digraph finite_state_machine {\n");
@@ -52,12 +90,12 @@ public class FiniteStateMachine {
         sb.append("edge [fontname=\"Monaco\"];\n");
         sb.append("graph [fontname=\"Monaco\"];\n");
 
-        sb.append("node [shape = circle];\n");
-        for (State state : states) {
+        sb.append("node [shape = oval];\n");
+        for (State state : this.states) {
             sb.append(state.toDot());
             sb.append("\n");
         }
-        for (Transition transition : transitions) {
+        for (Transition transition : this.transitions) {
             sb.append(transition.toDot());
             sb.append("\n");
         }

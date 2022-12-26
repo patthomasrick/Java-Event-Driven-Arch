@@ -13,18 +13,47 @@ public abstract class Transition {
     protected final State[] destinations;
 
     /** Labels for the edges from source to dest. */
-    protected final String[] labels;
+    protected String[] labels;
 
     /**
      * Constructs a new transition.
+     *
+     * Order of state transitions is not guaranteed, and this function is ran
+     * before the current FSM state is exited.
      *
      * @param source
      * @param destinations
      */
     public Transition(State source, State[] destinations) {
+        if (source == null || destinations == null || destinations.length == 0) {
+            throw new IllegalArgumentException(
+                    "Source and destinations must be non-null and have at least one destination.");
+        }
+
         this.source = source;
         this.destinations = destinations;
         this.labels = new String[destinations.length];
+    }
+
+    /**
+     * Constructs a new transition.
+     *
+     * Order of state transitions is not guaranteed, and this function is ran
+     * before the current FSM state is exited.
+     *
+     * @param source
+     * @param destinations
+     * @param labels
+     */
+    public Transition(State source, State[] destinations, String[] labels) {
+        this(source, destinations);
+
+        if (labels == null || labels.length != destinations.length) {
+            throw new IllegalArgumentException(
+                    "Labels must be non-null and have the same number of elements as destinations.");
+        }
+
+        this.labels = labels;
     }
 
     /**
