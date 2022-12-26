@@ -3,12 +3,23 @@
  */
 package me.pwt5ca.jeda;
 
+import me.pwt5ca.jeda.fsm.FiniteStateMachine;
+import me.pwt5ca.jeda.fsm.FiniteStateMachineBuilder;
+import me.pwt5ca.jeda.fsm.State;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        FiniteStateMachineBuilder builder = new FiniteStateMachineBuilder();
+        State start = builder.newState();
+        State end = builder.newState();
+        builder.addBinaryTransition(start, end, start);
+        builder.addBinaryTransition(end, start, end);
+        FiniteStateMachine fsm = builder.build();
+
+        System.out.println(fsm.toDot());
     }
 }
