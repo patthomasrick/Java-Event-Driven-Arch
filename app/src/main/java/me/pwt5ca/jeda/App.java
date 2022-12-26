@@ -3,6 +3,7 @@
  */
 package me.pwt5ca.jeda;
 
+import me.pwt5ca.jeda.fsm.DebugState;
 import me.pwt5ca.jeda.fsm.FiniteStateMachine;
 import me.pwt5ca.jeda.fsm.FiniteStateMachineBuilder;
 import me.pwt5ca.jeda.fsm.State;
@@ -14,10 +15,16 @@ public class App {
 
     public static void main(String[] args) {
         FiniteStateMachineBuilder builder = new FiniteStateMachineBuilder();
-        State start = builder.newState();
-        start.setLabel("Start");
-        State end = builder.newState();
-        end.setLabel("End");
+        // State start = builder.newState();
+        // start.setLabel("Start");
+        // State end = builder.newState();
+        // end.setLabel("End");
+
+        State start = new DebugState("Start");
+        builder.addState(start);
+        State end = new DebugState("End");
+        builder.addState(end);
+
         builder.addBinaryTransition(start, end, start);
         builder.addBinaryTransition(end, start, end);
         FiniteStateMachine fsm = builder.build();
@@ -45,7 +52,6 @@ public class App {
             Boolean input = i % 2 == 0;
             System.out.println("Input: " + input);
             fsm.evaluate(input);
-            System.out.println("Current state: " + fsm.getCurrentState());
         }
     }
 }

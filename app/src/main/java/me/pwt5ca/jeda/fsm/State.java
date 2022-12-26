@@ -79,10 +79,14 @@ public class State {
      * @return Line that creates a node with a label in DOT
      */
     public String toDot() {
+        String className = this.getClass().getName();
+        // Remove package name
+        className = className.substring(className.lastIndexOf('.') + 1);
+
         if (this.getLabel() != null) {
-            return String.format("%d [label=\"%s\"]", this.id, this.label);
+            return String.format("%d [label=\"%s\\n%s\"]", this.id, className, this.label);
         } else {
-            return String.format("%d [label=\"%d\"]", this.id, this.id);
+            return String.format("%d [label=\"%s\\n%d\"]", this.id, className, this.id);
         }
     }
 }

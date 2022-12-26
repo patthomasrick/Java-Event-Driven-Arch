@@ -75,6 +75,17 @@ public class FiniteStateMachine {
     }
 
     /**
+     * Evaluate a whole input string.
+     * 
+     * @param objects
+     */
+    public void evaluateMany(Iterable<Object> objects) {
+        for (Object object : objects) {
+            this.evaluate(object);
+        }
+    }
+
+    /**
      * Returns a DOT representation of this machine.
      *
      * @return the DOT representation
