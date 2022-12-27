@@ -1,6 +1,8 @@
-package me.pwt5ca.jeda.fsm;
+package me.pwt5ca.jeda.fsm.transition;
 
 import java.util.Map;
+
+import me.pwt5ca.jeda.fsm.state.State;
 
 /**
  * A transition in a finite state machine that accepts a single character.

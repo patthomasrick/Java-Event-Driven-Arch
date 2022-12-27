@@ -1,5 +1,8 @@
 package me.pwt5ca.jeda.fsm;
 
+import me.pwt5ca.jeda.fsm.state.State;
+import me.pwt5ca.jeda.fsm.transition.Transition;
+
 /**
  * A finite state machine. Contains states and transitions.
  * 

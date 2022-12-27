@@ -1,4 +1,6 @@
-package me.pwt5ca.jeda.fsm;
+package me.pwt5ca.jeda.fsm.transition;
+
+import me.pwt5ca.jeda.fsm.state.State;
 
 /**
  * A transition that evaluates to one of two states based on a boolean input.

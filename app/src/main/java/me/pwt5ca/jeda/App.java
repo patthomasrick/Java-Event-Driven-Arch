@@ -3,10 +3,10 @@
  */
 package me.pwt5ca.jeda;
 
-import me.pwt5ca.jeda.fsm.DebugState;
 import me.pwt5ca.jeda.fsm.FiniteStateMachine;
 import me.pwt5ca.jeda.fsm.FiniteStateMachineBuilder;
-import me.pwt5ca.jeda.fsm.State;
+import me.pwt5ca.jeda.fsm.state.DebugState;
+import me.pwt5ca.jeda.fsm.state.State;
 
 public class App {
     public String getGreeting() {

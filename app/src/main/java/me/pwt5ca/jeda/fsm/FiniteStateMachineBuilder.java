@@ -3,6 +3,10 @@ package me.pwt5ca.jeda.fsm;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.pwt5ca.jeda.fsm.state.State;
+import me.pwt5ca.jeda.fsm.transition.BinaryTransition;
+import me.pwt5ca.jeda.fsm.transition.Transition;
+
 /**
  * A builder for finite state machines.
  *

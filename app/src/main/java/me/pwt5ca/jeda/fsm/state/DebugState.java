@@ -1,4 +1,4 @@
-package me.pwt5ca.jeda.fsm;
+package me.pwt5ca.jeda.fsm.state;
 
 public class DebugState extends State {
     /**
