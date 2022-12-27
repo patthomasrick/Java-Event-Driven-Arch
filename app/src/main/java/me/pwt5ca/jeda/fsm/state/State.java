@@ -14,7 +14,7 @@ public class State {
     private int id;
 
     /** Custom label of the node. */
-    private String label;
+    private String label = "";
 
     /**
      * Constructs a new state.
@@ -64,13 +64,16 @@ public class State {
         this.label = label;
     }
 
+    /**
+     * Called when this state is entered via the FSM.
+     */
     public void enter() {
     }
 
+    /**
+     * Called when this state is exited via the FSM.
+     */
     public void exit() {
-    }
-
-    public void update() {
     }
 
     /**
@@ -83,7 +86,7 @@ public class State {
         // Remove package name
         className = className.substring(className.lastIndexOf('.') + 1);
 
-        if (this.getLabel() != null) {
+        if (this.getLabel() != "" && this.getLabel() != null) {
             return String.format("%d [label=\"%s\\n%s\"]", this.id, className, this.label);
         } else {
             return String.format("%d [label=\"%s\\n%d\"]", this.id, className, this.id);

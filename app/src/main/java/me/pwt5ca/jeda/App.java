@@ -3,23 +3,18 @@
  */
 package me.pwt5ca.jeda;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import me.pwt5ca.jeda.fsm.FiniteStateMachine;
 import me.pwt5ca.jeda.fsm.FiniteStateMachineBuilder;
 import me.pwt5ca.jeda.fsm.state.DebugState;
 import me.pwt5ca.jeda.fsm.state.State;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
     public static void main(String[] args) {
         FiniteStateMachineBuilder builder = new FiniteStateMachineBuilder();
-        // State start = builder.newState();
-        // start.setLabel("Start");
-        // State end = builder.newState();
-        // end.setLabel("End");
-
+        // Add debug states.
         State start = new DebugState("Start");
         builder.addState(start);
         State end = new DebugState("End");
@@ -29,10 +24,9 @@ public class App {
         builder.addBinaryTransition(end, start, end);
         FiniteStateMachine fsm = builder.build();
 
-        // System.out.println(fsm.toDot());
-        // Write to file
+        // Write DOT representation of FSM to file.
         try {
-            java.io.FileWriter writer = new java.io.FileWriter("fsm.dot");
+            FileWriter writer = new FileWriter("fsm.dot");
             writer.write(fsm.toDot());
             writer.close();
 
@@ -40,7 +34,7 @@ public class App {
             ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "fsm.dot", "-o", "fsm.png");
             Process p = pb.start();
             p.waitFor();
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         } catch (InterruptedException e) {
