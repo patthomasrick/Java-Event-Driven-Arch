@@ -1,9 +1,8 @@
 name: Gradle tests
-run-name: ${{ github.event.pull_request.title }} Gradle tests
 
 on:
   pull_request:
-    branches: [$default-branch]
+    branches: [ main ]
 
 jobs:
   build:
