@@ -1,6 +1,6 @@
 # JEDA - Java Event Driven Architecture
 
-[![Hippocratic License HL3-FULL](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-FULL&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/full.html)
+![Github Actions - Gradle tests](https://github.com/patthomasrick/Java-Event-Driven-Arch/actions/workflows/gradle_test.yaml/badge.svg) [![Hippocratic License HL3-FULL](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-FULL&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/full.html)
 
 JEDA is a simple proof-of-concept event-driven architecture. It aims to support
 the following features:
